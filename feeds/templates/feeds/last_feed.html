@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}{{ title['title'] }}{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+
+    <ul>
+        <li class="row">
+            <span class="col">
+                <strong>Time:</strong>
+            </span>
+
+            <span class="col">
+                {{ actions['action_timestamp'] | string_time }}
+            </span>
+        </li>
+        
+        <li class="row">
+            <span class="col">
+                <strong>Action:</strong>
+            </span>
+
+            <span class="col">
+                {{ actions['action_desc'] }}
+            </span>
+        </li>
+        
+        <li class="row">
+            <span class="col">
+                <strong>Volume (ml):</strong>
+            </span>
+
+            <span class="col">
+                {{ actions['action_feedvol'] }}
+            </span>
+        </li>
+        
+        <li class="row">
+            <span class="col">
+                <strong>Time since:</strong>
+            </span>
+
+            <span class="col">
+                {{ delta | string_time }}
+            </span>
+        </li>
+    </ul>
+
+{% endblock %}

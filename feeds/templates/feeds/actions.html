@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}{{ title['title'] }}{% endblock %}</h1>
+{% endblock %}
+
+
+{% block toolbar %}
+
+    <a href="{{ url_for('main.all_actions', status='view') }}" class="btn btn{%if status != 'view' %}-outline{% endif %}-primary">View</a>
+    <a href={{ url_for('main.all_actions', status='edit') }} class="btn btn{%if status != 'edit' %}-outline{% endif %}-primary">Edit</a>
+
+{% endblock %}
+
+{% block content %}
+
+<table class="table table-sm">
+
+    <thead class="thead-light">
+        <tr>
+            <th>Date / Time</th>
+            <th>Action</th>
+            <th>Volume (ml)</th>
+            <th>Time since</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody class="table-striped">
+        
+    {% for row in actions %}
+        <tr>
+            <td>{{ row['action_timestamp'] | string_time }}</td>
+            <td>{{ row['action_desc'] }}</td>
+            <td>{{ row['action_feedvol'] }}</td>
+            <td>HH:MM</td>
+            <td>
+                {% if status == 'edit' %}
+                
+                <img height="20px" src="{{ url_for('static', filename='icons8-pencil-50.png') }}">
+                <a href="{{url_for('main.delete', id=row['action_id'])}}"><img height="20px" src="{{ url_for('static', filename='icons8-cancel-50.png') }}"></a>
+                {% else %}
+                {% endif     %}
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+
+{% endblock %}
